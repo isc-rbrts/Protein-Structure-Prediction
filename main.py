@@ -22,7 +22,7 @@ def gfg():
         with open('static/predicted.pdb', 'w') as f:
             f.write(pdb_string)
 
-        return render_template('result.html', data=pdb_string)
+        return render_template('result.html', data=pdb_string, seq=seq)
     
     return render_template('home.html')
 
