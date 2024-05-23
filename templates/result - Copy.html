@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Protein Structure Predictor{% endblock %}
+
+{% block customcss %}
+    <style>
+        input, textarea {
+            font-family: "Courier New", monospace;
+        }
+        .mol-container {
+            width: 60%;
+            height: 400px;
+            position: relative;
+        }
+    </style>
+{% endblock %}
+
+{% block current %}
+<li class="nav-item">
+    <a class="nav-link" href="/" aria-current="page">Home</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="about">About</a>
+</li>
+{% endblock %}
+
+{% block content%}
+
+    <h1>Protein Structure Predictor</h1>
+    <p>Enter your protein sequence:</p>
+    <form action="{{ url_for('gfg')}}" method="post">
+        <textarea id="sequence" name="seq" rows="6" cols="100" maxlength="800">MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ</textarea>
+        <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+
+    <div id="container-01" class="mol-container"></div>
+
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <script type="text/javascript">
+        let viewer = $3Dmol.createViewer( element, config );
+        
+        let v = viewer;
+        v.addModel({{ data }}, "pdb" );                       /* load data */
+        v.setStyle({}, {cartoon: {color: 'spectrum'}});  /* style all atoms */
+        v.zoomTo();                                      /* set camera */
+        v.render();                                      /* render scene */
+        v.zoom(1.2, 1000);
+    </script>
+
+{% endblock %}

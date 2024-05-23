@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Protein Structure Prediction</title>
+    <style>
+        input, textarea {
+            font-family: "Courier New", monospace;
+        }
+        .mol-container {
+            width: 60%;
+            height: 400px;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <h1>Protein Structure Predictor</h1>
+    <p>Enter your protein sequence:</p>
+    <form action="{{ url_for('gfg')}}" method="post">
+        <div>
+        <textarea id="sequence" name="seq" rows="6" cols="100" maxlength="800">MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Protein Structure Prediction</title>
+    <style>
+        input, textarea {
+            font-family: "Courier New", monospace;
+        }
+        .mol-container {
+            width: 60%;
+            height: 400px;
+            position: relative;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Protein Structure Predictor</h1>
+    <p>Enter your protein sequence:</p>
+    <form action="{{ url_for('gfg')}}" method="post">
+        <div>
+        <textarea id="sequence" name="seq" rows="6" cols="100" maxlength="800">MGSSHHHHHHSSGLVPRGSHMRGPNPTAASLEASAGPFTVRSFTVSRPSGYGAGTVYYPTNAGGTVGAIAIVPGYTARQSSIKWWGPRLASHGFVVITIDTNSTLDQPSSRSSQQMAALRQVASLNGTSSSPIYGKVDTARMGVMGWSMGGGGSLISAANNPSLKAAAPQAPWDSSTNFSSVTVPTLIFACENDSIAPVNSSALPIYDSMSRNAKQFLEINGGSHSCANSGNSNQALIGKKGVAWMKRFMDNDTRYSTFACENPNSTRVSDFRTANCSLEDPAANKARKEAELAAATAEQ</textarea>
+        </div>
+        <div>
+        <button type="submit" class="btn btn-primary">Predict</button>
+        </div>
+        
+    </form>
+
+    <div id="container-01" class="mol-container"></div>
+
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+    <script>
+        let element = document.querySelector('#container-01');
+        let config = { backgroundColor: '#060606' };
+        let viewer = $3Dmol.createViewer( element, config );
+        let pdbUri = 'static/predicted.pdb';
+        
+        console.log(pdbUri);
+
+        jQuery.ajax( pdbUri, { 
+            success: function(data) {
+                let v = viewer;
+                v.addModel( data, "pdb" );
+                v.setStyle({}, {cartoon: {color: 'spectrum'}});
+                v.zoom(2, 1000);
+                v.spin(true)
+                v.zoomTo();
+                v.render();
+            },
+            error: function(hdr, status, err) {
+                console.error( "Failed to load PDB " + pdbUri + ": " + err );
+            },
+        });
+    </script>
+</body>
+</html>
