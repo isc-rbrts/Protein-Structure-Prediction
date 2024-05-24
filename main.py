@@ -16,7 +16,6 @@ def gfg():
             'Content-Type': 'application/x-www-form-urlencoded',
         }
         response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=seq, verify=False)
-        name = seq[:3] + seq[-3:]
         pdb_string = response.content.decode('utf-8')
 
         with open('static/predicted.pdb', 'w') as f:
