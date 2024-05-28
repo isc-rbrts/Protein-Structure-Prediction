@@ -36,22 +36,16 @@
         let element = document.querySelector('#container-01');
         let config = { backgroundColor: '#060606' };
         let viewer = $3Dmol.createViewer( element, config );
-        let pdbUri = 'static/predicted.pdb';
+        var data = {{data|tojson}}
 
-        jQuery.ajax( pdbUri, { 
-            success: function(data) {
-                let v = viewer;
-                v.addModel( data, "pdb" );
-                v.setStyle({}, {cartoon: {color: 'spectrum'}});
-                v.zoom(2, 1000);
-                v.spin(true)
-                v.zoomTo();
-                v.render();
-            },
-            error: function(hdr, status, err) {
-                console.error( "Failed to load PDB " + pdbUri + ": " + err );
-            },
-        });
+        let v = viewer;
+        v.addModel( data, "pdb" );
+        v.setStyle({}, {cartoon: {color: 'spectrum'}});
+        v.zoom(2, 1000);
+        v.spin(true)
+        v.zoomTo();
+        v.render();
+
     </script>
 </body>
 </html>
