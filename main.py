@@ -18,9 +18,6 @@ def gfg():
         response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=seq, verify=False)
         pdb_string = response.content.decode('utf-8')
 
-        with open('static/predicted.pdb', 'w') as f:
-            f.write(pdb_string)
-
         return render_template('result.html', data=pdb_string, seq=seq)
     
     return render_template('home.html')
