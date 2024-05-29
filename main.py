@@ -18,10 +18,10 @@ def gfg():
         response = requests.post('https://api.esmatlas.com/foldSequence/v1/pdb/', headers=headers, data=seq, verify=False)
         pdb_string = response.content.decode('utf-8')
 
-        with open('static/predicted.pdb', 'w') as f:
+        with open('/tmp/predicted.pdb', 'w') as f:
             f.write(pdb_string)
 
-        structure = bsio.load_structure('static/predicted.pdb', extra_fields=["b_factor"])
+        structure = bsio.load_structure('/tmp/predicted.pdb', extra_fields=["b_factor"])
         b_value = round(structure.b_factor.mean(), 4)
 
         return render_template('result.html', data=pdb_string, seq=seq, b_value=b_value)
